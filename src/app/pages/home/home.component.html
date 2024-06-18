@@ -1,4 +1,44 @@
 <poke-header></poke-header>
 <main>
-  <poke-list></poke-list>
+  <section class="button">
+    <button
+      mat-fab
+      extended
+      color="primary"
+      [class.selected]="selectedGeneration === 'first'"
+      (click)="loadFirstGeneration"
+    >
+      1° Generation
+    </button>
+    <button
+      mat-fab
+      extended
+      color="primary"
+      [class.selected]="selectedGeneration === 'second'"
+      (click)="loadSecondGeneration"
+    >
+      2° Generation
+    </button>
+    <button
+      mat-fab
+      extended
+      color="primary"
+      [class.selected]="selectedGeneration === 'third'"
+      (click)="loadThirdGeneration"
+    >
+      3° Generation
+    </button>
+    <button
+      mat-fab
+      extended
+      color="primary"
+      [class.selected]="selectedGeneration === 'forth'"
+      (click)="loadForthGeneration"
+    >
+      4° Generation
+    </button>
+  </section>
+  <ng-container *ngIf="showPokeList">
+    <poke-list [pokemons]="pokemons"></poke-list>
+  </ng-container>
 </main>

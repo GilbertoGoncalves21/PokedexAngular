@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PokeApiService } from 'src/app/service/poke-api.service';
 
 @Component({
@@ -28,6 +28,8 @@ export class PokeListComponent implements OnInit {
       }
     );
   }
+
+  @Input() pokemons: any[] = [];
 
   public getSearch(value: string) {
     const filter = this.setAllPokemons.filter((res: any) => {

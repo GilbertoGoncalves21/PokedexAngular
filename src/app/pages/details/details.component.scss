@@ -4,6 +4,12 @@
   main {
     margin-top: rem-calc(40);
 
+    ng-template{
+      &:hover{
+        transform: scale(1.2);
+      }
+    }
+
     .pokemon__names {
       position: relative;
       display: flex;
@@ -40,6 +46,7 @@
 
       img {
         position: absolute;
+        transform: scale(2);
         top: rem-calc(-90);
         left: rem-calc(30);
         max-width: rem-calc(130);
@@ -60,7 +67,7 @@
         margin-top: rem-calc(10);
 
         padding: rem-calc(110) rem-calc(35) rem-calc(30);
-        border-radius: rem-calc(50) rem-calc(50) 0 0;
+        border-radius: rem-calc(50);
 
         h3 {
           margin-bottom: rem-calc(30);

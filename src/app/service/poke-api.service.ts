@@ -8,6 +8,7 @@ import { map, tap } from "rxjs/operators";
 })
 export class PokeApiService {
 
+    private baseUrl: string = 'https://pokeapi.co/api/v2/pokemon/';
     private url: string = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151';
 
     constructor(
@@ -15,19 +16,8 @@ export class PokeApiService {
     ) { }
 
     get apiListAllPokemons(): Observable<any> {
-        return this.http.get<any>(this.url).pipe(
-            tap(res => res),
-            tap(res => {
-                res.results.map((resPokemons: any) => {
-
-                    this.apiGetPokemon(resPokemons.url).subscribe(
-                        res => resPokemons.status = res
-                    );
-
-                })
-            })
-        )
-    }
+        return this.getPokemons(0, 151);
+      }
 
     public apiGetPokemon(url: string): Observable<any> {
         return this.http.get<any>(url).pipe(
@@ -36,4 +26,18 @@ export class PokeApiService {
             )
         )
     }
+
+    getPokemons(offset: number, limit: number): Observable<any> {
+        const url = `${this.baseUrl}?offset=${offset}&limit=${limit}`;
+        return this.http.get<any>(url).pipe(
+          tap(res => res),
+          tap(res => {
+            res.results.map((resPokemons: any) => {
+              this.apiGetPokemon(resPokemons.url).subscribe(
+                res => resPokemons.status = res
+              );
+            });
+          })
+        );
+      }
 }

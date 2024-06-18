@@ -4,6 +4,9 @@ import { RoutingModule } from './routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { HomeComponent } from './home/home.component';
 import { DetailsComponent } from './details/details.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+
 
 @NgModule({
   declarations: [
@@ -13,7 +16,9 @@ import { DetailsComponent } from './details/details.component';
   imports: [
     CommonModule,
     RoutingModule,
-    SharedModule
+    SharedModule,
+    MatIconModule,
+    MatButtonModule
   ]
 })
 export class PagesModule { }
