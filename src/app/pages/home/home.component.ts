@@ -11,14 +11,13 @@ export class HomeComponent implements OnInit {
 
   showPokeList: boolean = false;
 
-  selectedGeneration: string = '';
+  selectedGeneration: string = 'first';
 
   constructor(private pokemonService: PokeApiService) {}
 
   ngOnInit(): void {
     const savedGeneration = localStorage.getItem('selectedGeneration');
-    console.log(savedGeneration);
-    
+  
     if (savedGeneration) {
       this.selectedGeneration = savedGeneration;
       this.loadGeneration(savedGeneration);
