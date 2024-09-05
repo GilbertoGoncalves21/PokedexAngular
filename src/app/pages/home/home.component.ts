@@ -70,6 +70,9 @@ export class HomeComponent implements OnInit {
       case 'third':
         this.loadThirdGeneration;
         break;
+      case 'forth':
+        this.loadForthGeneration;
+        break;
       default:
         this.loadFirstGeneration;
     }

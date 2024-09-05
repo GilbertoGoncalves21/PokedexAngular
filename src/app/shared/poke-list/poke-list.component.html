@@ -1,6 +1,6 @@
 <poke-search (emmitSearch)="getSearch($event)"></poke-search>
 <section class="listagem">
-  <ng-container *ngFor="let pokemon of pokemons">
+  <ng-container *ngFor="let pokemon of getAllPokemons">
     <a [routerLink]="['details', pokemon.status.id]" class="pokemon" *ngIf="pokemon.status">
       <section class="pokemon__status">
         <h2>{{ pokemon.name }}</h2>
