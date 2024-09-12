@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges } from '@angular/core';
 import { PokeApiService } from 'src/app/service/poke-api.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { PokeApiService } from 'src/app/service/poke-api.service';
   templateUrl: './poke-list.component.html',
   styleUrls: ['./poke-list.component.scss']
 })
-export class PokeListComponent implements OnInit {
+export class PokeListComponent implements OnChanges {
 
   private setAllPokemons: any;
   public getAllPokemons: any;
@@ -14,28 +14,26 @@ export class PokeListComponent implements OnInit {
   public apiError: boolean = false;
 
   constructor(
-    private pokeApiService: PokeApiService
+    private pokeApiService: PokeApiService,
+    private changeDetectorRef: ChangeDetectorRef
   ) { }
 
-  ngOnInit(): void {
-    this.pokeApiService.apiListAllPokemons.subscribe(
-      res => {
-        this.setAllPokemons = res.results;
-        this.getAllPokemons = this.setAllPokemons;
-      },
-      error => {
-        this.apiError = true;
-      }
-    );
+  ngOnChanges(): void {
+    if (this.pokemons) {
+      this.setAllPokemons = this.pokemons;
+      this.getAllPokemons = this.pokemons;
+    }
   }
 
   @Input() pokemons: any[] = [];
 
-  public getSearch(value: string) {
+  public getSearch(value: string): void {
     const filter = this.setAllPokemons.filter((res: any) => {
       return !res.name.indexOf(value.toLowerCase());
     });
 
     this.getAllPokemons = filter;
+    this.changeDetectorRef.detectChanges();
+    this.changeDetectorRef.detach();
   }
 }

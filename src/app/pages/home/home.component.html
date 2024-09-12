@@ -5,6 +5,7 @@
       mat-fab
       extended
       color="primary"
+      type="button"
       [class.selected]="selectedGeneration === 'first'"
       (click)="loadFirstGeneration"
     >
@@ -14,6 +15,7 @@
       mat-fab
       extended
       color="primary"
+      type="button"
       [class.selected]="selectedGeneration === 'second'"
       (click)="loadSecondGeneration"
     >
@@ -23,6 +25,7 @@
       mat-fab
       extended
       color="primary"
+      type="button"
       [class.selected]="selectedGeneration === 'third'"
       (click)="loadThirdGeneration"
     >
@@ -32,13 +35,14 @@
       mat-fab
       extended
       color="primary"
+      type="button"
       [class.selected]="selectedGeneration === 'forth'"
       (click)="loadForthGeneration"
     >
       4° Generation
     </button>
   </section>
-  <ng-container *ngIf="showPokeList">
+  <ng-container *ngIf="showPokeList" class="list">
     <poke-list [pokemons]="pokemons"></poke-list>
   </ng-container>
 </main>
