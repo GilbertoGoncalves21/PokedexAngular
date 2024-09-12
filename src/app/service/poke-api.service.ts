@@ -4,40 +4,39 @@ import { Observable } from 'rxjs';
 import { map, tap } from "rxjs/operators";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class PokeApiService {
+  private baseUrl: string = 'https://pokeapi.co/api/v2/pokemon/';
+  private url: string = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151';
 
-    private baseUrl: string = 'https://pokeapi.co/api/v2/pokemon/';
-    private url: string = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151';
+  constructor(
+    private http: HttpClient
+  ) { }
 
-    constructor(
-        private http: HttpClient
-    ) { }
+  get apiListAllPokemons(): Observable<any> {
+    return this.getPokemons(0, 151);
+  }
 
-    get apiListAllPokemons(): Observable<any> {
-        return this.getPokemons(0, 151);
-      }
+  apiGetPokemon(url: string): Observable<any> {
+    return this.http.get<any>(url).pipe(
+      map(
+        res => res
+      )
+    )
+  }
 
-    public apiGetPokemon(url: string): Observable<any> {
-        return this.http.get<any>(url).pipe(
-            map(
-                res => res
-            )
-        )
-    }
-
-    getPokemons(offset: number, limit: number): Observable<any> {
-        const url = `${this.baseUrl}?offset=${offset}&limit=${limit}`;
-        return this.http.get<any>(url).pipe(
-          tap(res => res),
-          tap(res => {
-            res.results.map((resPokemons: any) => {
-              this.apiGetPokemon(resPokemons.url).subscribe(
-                res => resPokemons.status = res
-              );
-            });
-          })
-        );
-      }
+  getPokemons(offset: number, limit: number): Observable<any> {
+    const url = `${this.baseUrl}?offset=${offset}&limit=${limit}`;
+    return this.http.get<any>(url).pipe(
+      tap(res => res),
+      tap(res => {
+        res.results.map((resPokemons: any) => {
+          this.apiGetPokemon(resPokemons.url).subscribe(
+            res => resPokemons.status = res
+          );
+        });
+      })
+    );
+  }
 }
